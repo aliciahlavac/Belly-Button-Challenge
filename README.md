@@ -11,6 +11,8 @@ In addition to the bar chart, we created a bubble chart that displayed each samp
 
 To enhance the dashboard's interactivity, we displayed the sample metadata, which included demographic information about the selected individual. We showed each key-value pair from the metadata JSON object on the page.
 
+![BellyButtonChallenge](https://github.com/aliciahlavac/Belly_Button_Challenge/assets/127240852/9169b6d9-9506-4080-801f-0bdca4b35b38)
+
 We ensured that all the plots on the dashboard were updated dynamically when a new sample was selected from the dropdown menu, providing users with real-time visualizations based on their choices.
 
 Overall, this challenge allowed us to demonstrate our ability to use D3, Plotly, and HTML to create an interactive dashboard that visually represents and explores the microbial diversity in human navels.
