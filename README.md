@@ -3,7 +3,7 @@ Module 14 Challenge
 
 In this challenge, we were tasked with creating an interactive dashboard to explore the "Belly Button Biodiversity" dataset, which provides information about the microbial species found in human navels. 
 
-Our first step was to use the D3 library to read the data from the provided URL, which contained the samples.json file. This data would serve as the foundation for our interactive dashboard.
+Our first step was to use the D3 library to read the data from the provided URL, which contained the [samples.json](https://github.com/aliciahlavac/Belly_Button_Challenge/blob/main/StarterCode/samples.json) file. This data would serve as the foundation for our interactive dashboard.
 
 Next, we created a horizontal bar chart with a dropdown menu to display the top 10 operational taxonomic units (OTUs) found in an individual's navel. We used the sample_values as the values for the bar chart, otu_ids as the labels for the bars, and otu_labels as hovertext to provide additional information.
 
