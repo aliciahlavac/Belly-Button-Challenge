@@ -17,74 +17,94 @@ d3.json(url).then(data => {
             .property("value", sample.id);
     });
 
-    // Function to update the bar chart and bubble chart based on selected sample
+    // Function to update the bar chart, bubble chart, and gauge chart based on selected sample
     function updateCharts(selectedSample) {
         // Compare sample ID with selectedSample and return sample when matched and store in selectedData
         const selectedData = samples.find(sample => sample.id === selectedSample);
 
         // Update the horizontal bar chart
         const barTrace = {
-            // Select top 10 sample_values and put them in reverse order
             x: selectedData.sample_values.slice(0, 10).reverse(),
-            // Select top 10 otu_ids and put them in reverse order, format them as strings with prefix "OTU"
             y: selectedData.otu_ids.slice(0, 10).reverse().map(id => `OTU ${id}`),
-            // Create the hover text
             text: selectedData.otu_labels.slice(0, 10).reverse(),
-            // Select a bar chart
             type: "bar",
-            // Make it a horizontal bar chart
             orientation: "h"
         };
-        // Create the bar layout with the title including selectedSample
         const barLayout = {
             title: `Top 10 OTUs for Sample ${selectedSample}`
         };
-        // Create the plot
         Plotly.newPlot("bar", [barTrace], barLayout);
 
         // Update the bubble chart
         const bubbleTrace = {
-            // Select otu_ids as x data
             x: selectedData.otu_ids,
-            // Select sample values as y values
             y: selectedData.sample_values,
-            // Use otu_labels as hover text
             text: selectedData.otu_labels,
-            // Display data points as individual markers
             mode: 'markers',
-            // Set appearance of markers
             marker: {
-                // Size is related to sample_values
                 size: selectedData.sample_values,
-                // Color changes related to otu_ids
                 color: selectedData.otu_ids,
-                // Colorscale is Earth
                 colorscale: 'Earth'
             }
         };
-        // Set titles and axis labels for bubble chart
         const bubbleLayout = {
             title: `Bubble Chart for Sample ${selectedSample}`,
             xaxis: { title: "OTU IDs" },
             yaxis: { title: "Sample Values" }
         };
-        // Create a new bubble plot
         Plotly.newPlot("bubble", [bubbleTrace], bubbleLayout);
 
         // Display sample metadata
-        // Return item if item id matches selectedSample
         const selectedMetadata = metadata.find(item => item.id.toString() === selectedSample);
-        // Select element with id sample-metadata
         const metadataPanel = d3.select("#sample-metadata");
-        // Clear previous content
-        metadataPanel.html(""); 
+        metadataPanel.html("");
 
-        // Run through each key-value pair to find the demographic info
         Object.entries(selectedMetadata).forEach(([key, value]) => {
             metadataPanel.append("p").text(`${key}: ${value}`);
         });
+
+        // Update the gauge chart
+        const weeklyWashingFrequency = selectedMetadata.wfreq;
+
+        const gaugeTrace = {
+            value: weeklyWashingFrequency,
+            title: { text: "Weekly Washing Frequency" },
+            type: "indicator",
+            mode: "gauge+number",
+            gauge: {
+                axis: { range: [0, 9] },
+                bar: { color: "dark green" },
+                bgcolor: "white",
+                borderwidth: 2,
+                bordercolor: "gray",
+                steps: [
+                    {range: [0, 1], color: "rgba(255, 255, 255, 0)"},
+                    {range: [1, 2], color: "rgba(232, 226, 202, .5)"},
+                    {range: [2, 3], color: "rgba(210, 206, 145, .5)"},
+                    {range: [3, 4], color:  "rgba(202, 209, 95, .5)"},
+                    {range: [4, 5], color:  "rgba(184, 205, 68, .5)"},
+                    {range: [5, 6], color: "rgba(170, 202, 42, .5)"},
+                    {range: [6, 7], color: "rgba(142, 178, 35 , .5)"},
+                    {range: [7, 8], color:  "rgba(110, 154, 22, .5)"},
+                    {range: [8, 9], color: "rgba(50, 143, 10, 0.5)"},
+                    {range: [9, 10], color: "rgba(14, 127, 0, .5)"}
+                ],
+                threshold: {
+                    line: { color: "red", width: 4 },
+                    thickness: 0.75,
+                    value: weeklyWashingFrequency
+                }
+            }
+        };
+
+        const gaugeLayout = {
+            width: 400,
+            height: 300,
+            margin: { t: 0, b: 0 }
+        };
+        Plotly.newPlot("gauge", [gaugeTrace], gaugeLayout);
     }
- 
+
     // Initial charts and metadata display
     updateCharts(samples[0].id);
 
