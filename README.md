@@ -1,7 +1,7 @@
 # Belly_Button_Challenge
 Module 14 Challenge
 
-In this challenge, we were tasked with creating an interactive dashboard to explore the "Belly Button Biodiversity" dataset, which provides information about the microbial species found in human navels. 
+In this challenge, we were tasked with creating an interactive dashboard to explore the "Belly Button Biodiversity" dataset, which provides information about the microbial species found in human navels. We made a JavaScript file, [app.js](https://github.com/aliciahlavac/Belly_Button_Challenge/blob/main/StarterCode/static/js/app.js), and used that to write the code that would make charts related to this data set.  
 
 Our first step was to use the D3 library to read the data from the provided URL, which contained the [samples.json](https://github.com/aliciahlavac/Belly_Button_Challenge/blob/main/StarterCode/samples.json) file. This data would serve as the foundation for our interactive dashboard.
 
