@@ -84,41 +84,7 @@ d3.json(url).then(data => {
             metadataPanel.append("p").text(`${key}: ${value}`);
         });
     }
-    // Function to update the gauge chart based on selected sample
-    function updateGaugeChart(selectedSample) {
-        const selectedMetadata = metadata.find(item => item.id.toString() === selectedSample);
-        const weeklyWashingFrequency = selectedMetadata.wfreq;
-
-        const data = [
-            {
-                domain: { x: [0, 1], y: [0, 1] },
-                value: weeklyWashingFrequency,
-                title: { text: "Weekly Washing Frequency" },
-                type: "indicator",
-                mode: "gauge+number",
-                gauge: {
-                    axis: { range: [0, 9] },
-                    bar: { color: "darkblue" },
-                    bgcolor: "white",
-                    borderwidth: 2,
-                    bordercolor: "gray",
-                    steps: [
-                        { range: [0, 3], color: "lightgray" },
-                        { range: [3, 6], color: "gray" },
-                        { range: [6, 9], color: "darkgray" }
-                    ],
-                    threshold: {
-                        line: { color: "red", width: 4 },
-                        thickness: 0.75,
-                        value: weeklyWashingFrequency
-                    }
-                }
-            }
-        ];
-
-        var layout = { width: 400, height: 300, margin: { t: 0, b: 0 } };
-        Plotly.newPlot("gauge", data, layout);
-}
+ 
     // Initial charts and metadata display
     updateCharts(samples[0].id);
 
